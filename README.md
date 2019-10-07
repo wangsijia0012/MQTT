@@ -3,8 +3,9 @@ MQTT物联网
 
 
 # 使用Arduino uno r3 + esp6288 + activemq(mqtt) + websocket
-
-以下是Arduino代码
+### 1.client包是springboot java代码,服务端websocket，与mqtt客户端
+### 2.activemq(mqtt)可自行下载安装
+### 3.以下是Arduino代码
 ``` 
 #include <WiFiEspClient.h>
 #include <WiFiEsp.h>
