@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mqtt</title>
+</head>
+
+<body style="background: #010101">
+<div style="height: 650px;width: 1080px;position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;">
+    <textarea id="text" ></textarea>
+</div>
+
+
+
+<script>
+
+    var ip = window.prompt("设置服务器IP","192.168.1.104");
+    var port = window.prompt("设置服务器端口","8080");
+
+    var socket;
+    if (typeof(WebSocket) == "undefined") {
+        console.log("您的浏览器不支持WebSocket");
+    } else {
+        console.log("您的浏览器支持WebSocket");
+        //实现化WebSocket对象，指定要连接的服务器地址与端口建立连接
+        socket = new WebSocket("ws://"+ip+":"+port+"/websocket");
+//        打开事件
+        socket.onopen = function () {
+            console.log("Socket已打开");
+        };
+        //获得服务器端消息事件
+        socket.onmessage = function (msg) {
+            document.getElementById("text").innerText=msg.data
+           console.log(msg.data)
+        };
+        //关闭事件
+        socket.onclose = function () {
+            console.log("Socket已关闭");
+        };
+
+        //发生了错误事件
+        socket.onerror = function () {
+            alert("Socket发生了错误");
+        }
+    }
+
+
+    // function myLast() {
+    //     socket.onclose()
+    // }
+    var btn=document.getElementsByClassName('btn1')[0];
+    btn.onclick=function () {
+
+        btn.style.opacity=0
+        btn.style.transition=1+'s'
+
+        setTimeout(function () {
+            socket.send("start");
+        },1000)
+
+
+    }
+</script>
+
+</body>
+</html>
